@@ -38,9 +38,6 @@ PHP_URL="https://s3.amazonaws.com/php-lp/php-$PHP_VERSION.tar.gz"
 echo "-----> Bundling PHP version $PHP_VERSION"
 curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
-echo "-----> Attempting imagick"
-/app/php/bin/pecl install imagick
-
 # update config files
 cp $LP_DIR/conf/httpd.conf $APACHE_PATH/conf
 cp $LP_DIR/conf/php.ini php
@@ -62,6 +59,9 @@ export PHP_INI_SCAN_DIR=/app/www
 echo "Launching apache"
 exec /app/apache/bin/httpd -DNO_DETACH
 EOF
+
+echo "-----> Attempting imagick"
+/app/php/bin/pecl install imagick
 
 chmod +x boot.sh
 
